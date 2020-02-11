@@ -25,8 +25,7 @@ class Ticker:
         def getAvailableDates(self):
                 self.tick._download_options(proxy=None)
                 dates = self.tick._expirations.keys()
-                for date in dates:
-                        print(date)
+                return dates
 
         def getAllCalls(self):
                 self.tick._download_options(proxy=None)
@@ -36,6 +35,10 @@ class Ticker:
                         options.append(self.tick.option_chain(date))
                         print(options[-1].calls)
 
-        def getCall(self, date, val):
-                option = self.tick.option_chain(date)
-                print(option.calls.loc[option.calls['strike']==val])
+        def getCall_Date(self, date):
+                option_chain = self.tick.option_chain(date)
+                return option_chain.calls
+
+        def getCall_StrikePrice(self, date, val):
+                option_chain = self.tick.option_chain(date)
+                return option_chain.calls.loc[option_chain.calls['strike']==val]
