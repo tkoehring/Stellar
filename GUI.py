@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QPushButton, QVBoxLay
     QTableWidget, QTableWidgetItem, QGroupBox
 from PyQt5.QtGui import QIcon, QColor, QFont, QFontDatabase
 from PyQt5.QtCore import QDate, QDir, Qt
-from Stock import Ticker
+from Stock import Stock
 from utils import *
 
 # Globals #
@@ -230,7 +230,7 @@ class mainFrame(QFrame):
 
     def tickerCB_Event(self, name):
         name = self.tickerBox.currentText()
-        data = Ticker(name)
+        data = Stock(name)
         dates = data.getAvailableDates()
 
         self.dateBox.clear()
@@ -242,7 +242,7 @@ class mainFrame(QFrame):
         date = self.dateBox.currentText()
         name = self.tickerBox.currentText()
         print("Getting call for {} on date {}".format(name, date))
-        data = Ticker(name)
+        data = Stock(name)
         res = data.getCall_Date(date)
         self.mainWindow.statusBar().showMessage('Call Retreived')
         self.centerFrame.dataTable.setRowCount(len(res))
