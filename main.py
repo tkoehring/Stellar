@@ -19,11 +19,11 @@ def main():
 
         today = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
         T = abs((myOpt.date - today).days)
-
-        print(T)
-        for i in range(80):
-                p = myOpt.call_price(data.getCurrentPrice(), strike, T, 0.0158, data.annual_log_std_dev())
-                print(p)
+        rfi = 0.0158
+        d = data.dividend_yield().item()
+        for i in range(1):
+                p = myOpt.call_price(data.getCurrentPrice(), strike, T, rfi, d, data.annual_log_std_dev())
+                print("Option Price: ${:.2f}".format(p))
                 T -= 1
 
         '''

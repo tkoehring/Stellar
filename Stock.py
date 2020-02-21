@@ -30,7 +30,7 @@ class Stock:
                 return dates
 
         def getCurrentPrice(self):
-                df = self.tick.history(period="5m", interval="1m")
+                df = self.tick.history(period="1d", interval="1m")
                 return df['Close'][-1]
 
         def getAllCalls(self):
@@ -74,3 +74,8 @@ class Stock:
                 sum = np.sum(np.power(returns - mean, 2)) / returns.shape[0]
 
                 return math.sqrt(sum) * math.sqrt(data.shape[0] - 1)
+
+        def dividend_yield(self):
+                data = self.tick.dividends.tail(4)
+                return data.sum() / self.getCurrentPrice()
+
